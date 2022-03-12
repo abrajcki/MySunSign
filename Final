@@ -1,15 +1,22 @@
+#importing packages
 from tkinter import *
+from datetime import date
+#creating the root window
 root=Tk()
-root.title("My Sun Sign")
-root.geometry("300x300")
-root.configure(bg="salmon")
-result=Label(root,bg="salmon")
-result.grid(row=4,column=0,columnspan=2)
+root.title("My Sun Sign") #set main title
+#opening images
+img = PhotoImage(file=r'C:\Users\thata\OneDrive\Desktop\MySunSign\Images\image.gif')
+img = PhotoImage(file=r'C:\Users\thata\OneDrive\Desktop\MySunSign\Images\image2.gif')
+root.geometry("600x600") #set main window size
+root.configure(bg="salmon") #set window background color
+result=Label(root,bg="salmon") #set label color
+result.grid(row=7,column=0,columnspan=2) #set label location
+
+#function to figure sun sign
 def get_Sun(date,month):
-    global result
-    result.grid_forget()
-    date=int(entry1.get())
-    month=int(entry2.get())
+    month=int(entry1.get()) #get integer for month
+    date=int(entry2.get()) #get integer for date
+#set perameters for each sign based on sets of months and days
     if (month==3 and date>=21) or (month==4 and date<20):
         result=Label(root,text="Your Sun Sign is ARIES",borderwidth=12,bg="salmon")
         result.config(font=("Open Sans",18))
@@ -58,20 +65,26 @@ def get_Sun(date,month):
         result=Label(root,text="Your Sun Sign is PISCES",borderwidth=12,bg="salmon")
         result.config(font=("Open Sans",18))
         result.grid(row=4,column=0,columnspan=2)
+#false imput for number other than 1-12        
     else:
         result=Label(root,text="YOUR INPUTS ARE FALSE",borderwidth=12,bg="salmon")
         result.config(font=("Open Sans",18))
         result.grid(row=4,column=0,columnspan=2)
-
-label1=Label(root,text="Welcome to My Sun Sign ",borderwidth=20,bg="black",fg="salmon")
-label1.config(font=("Open Sans",15))
+#displaying labels
+#title label
+label1=Label(root,text="Welcome to My Sun Sign",borderwidth=49,bg="black",fg="salmon")
+label1.config(font=("Open Sans",32))
 label1.grid(row=0,column=0,columnspan=2)
-label2=Label(root,text="BIRTH DATE :",borderwidth=25,bg="salmon")
-label2.config(font=("Open Sans",15))
+#ask for month
+label2=Label(root,text="Enter month of birth (1-12) :",borderwidth=30,bg="salmon")
+label2.config(font=("Open Sans",20))
 label2.grid(row=1,column=0)
-label3=Label(root,text="BIRTH MONTH :",borderwidth=25,bg="salmon")
-label3.config(font=("Open Sans",15))
+#ask for date
+label3=Label(root,text="Enter date of birth :",borderwidth=30,bg="salmon")
+label3.config(font=("Open Sans",20))
 label3.grid(row=2,column=0)
+
+#setting entries
 entry1=Entry(root,borderwidth=3,width=7)
 entry1.grid(row=1,column=1)
 entry2=Entry(root,borderwidth=3,width=7)
@@ -79,7 +92,26 @@ entry1.grid(row=1,column=1)
 entry2.grid(row=2,column=1)
 date=entry1.get()
 month=entry2.get()
-get_button=Button(root,text="Show Me My Sun Sign",anchor=CENTER,command=lambda:get_Sun(date,month),height=2,width=20,bg="black",fg="salmon")
 
+#creating new window
+def openNewWindow():
+    newWindow = Toplevel(root)
+    newWindow.title("My Sun Sign MORE")
+    newWindow.geometry("450x450")
+    newWindow.configure(bg="mediumaquamarine")
+    Label(newWindow,text ="About Sun Signs",borderwidth=30,bg="black",fg="mediumaquamarine",font="48").pack()
+
+#getting buttons
+#click to populate sun sign
+get_button=Button(root,text="Show Me My Sun Sign",anchor=CENTER,command=lambda:get_Sun(date,month),height=3,width=25,bg="black",fg="salmon",font="48")
 get_button.grid(row=3,column=0,columnspan=2)
+#click to open new window
+get_button=Button(root,text="Tell Me More",anchor=CENTER,command=openNewWindow,height=3,width=25,bg="black",fg="salmon",font="48")
+get_button.grid(row=5,column=0,columnspan=2)
+#click to exit
+get_button=Button(root,text="EXIT",anchor=CENTER,command=root.destroy,height=3,width=25,bg="black",fg="salmon",font="48")
+get_button.grid(row=7,column=0,columnspan=2)
+
+#start main window
 root.mainloop()
+
